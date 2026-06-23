@@ -53,6 +53,14 @@ Matching is **case-sensitive** (Python's `fnmatchcase`). Python's plain `fnmatch
 case-normalizes via the platform's `os.path.normcase`, is intentionally not ported — apply
 case folding yourself if you need it.
 
+## Verification
+
+Matching is checked by differential testing against Python's `fnmatch.fnmatchcase` across thousands
+of `(pattern, name)` pairs. The crate is additionally cross-checked against the vocabulary in
+CPython's own upstream
+[`test_fnmatch.py`](https://github.com/python/cpython/blob/v3.13.13/Lib/test/test_fnmatch.py):
+35,696 `(pattern, name)` pairs agree with CPython 3.13.13.
+
 ## License
 
 Licensed under the [MIT License](LICENSE-MIT).
