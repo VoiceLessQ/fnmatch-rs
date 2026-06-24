@@ -1,6 +1,6 @@
 # fnmatch-rs
 
-A Rust port of Python's [`fnmatch`](https://docs.python.org/3/library/fnmatch.html) —
+A Rust port of Python's [`fnmatch`](https://docs.python.org/3/library/fnmatch.html):
 shell-style filename matching. The matching behaviour is verified against Python's
 `fnmatch.fnmatchcase` across thousands of `(pattern, name)` pairs.
 
@@ -44,14 +44,13 @@ Requires a Rust toolchain with 2024-edition support (Rust 1.85 or newer).
 ## How it works
 
 Like `fnmatch`, this works by translating the glob into a regular expression. The simple parts
-(`*` → `.*`, `?` → `.`) are easy; the real work is the `[...]` character classes — negation,
+(`*` → `.*`, `?` → `.`) are easy; the real work is the `[...]` character classes: negation,
 the `]`-at-start rule, ranges, empty-range removal, and escaping regex metacharacters. Python
 wraps `*` runs in atomic groups to tame its backtracking engine; Rust's `regex` crate is a
 linear-time automaton, so plain `.*` gives identical results.
 
-Matching is **case-sensitive** (Python's `fnmatchcase`). Python's plain `fnmatch`, which
-case-normalizes via the platform's `os.path.normcase`, is intentionally not ported — apply
-case folding yourself if you need it.
+Matching is case-sensitive (Python's `fnmatchcase`). Python's plain `fnmatch` case-normalizes
+via `os.path.normcase` and is not ported; apply case folding yourself if you need it.
 
 ## Verification
 
